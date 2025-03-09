@@ -1,7 +1,7 @@
 local Sound = Instance.new("Sound", game:GetService("SoundService"));
 Sound.SoundId = "rbxassetid://232127604";
 Sound:Play();
-local args1 = {[1] = "RolePlayName", [2] = "Gui Slowed"};
+local args1 = {[1] = "RolePlayName", [2] = "Bazuka Hub"};
 game:GetService("ReplicatedStorage").RE:FindFirstChild(
     "1RPNam1eTex1t"):FireServer(unpack(args1));
 local args = {
@@ -10,25 +10,25 @@ local args = {
 };
 game:GetService("ReplicatedStorage").RE:FindFirstChild(
     "1RPNam1eColo1r"):FireServer(unpack(args));
-local args4 = {[1] = "RolePlayBio", [2] = "Slowed Studios"};
+local args4 = {[1] = "RolePlayBio", [2] = "Bazuka Hub"};
 game:GetService("ReplicatedStorage").RE:FindFirstChild(
     "1RPNam1eTex1t"):FireServer(unpack(args4));
 local OrionLib = loadstring(game:HttpGet(
                                 "https://you.whimper.xyz/sources/slowed/0"))();
 local Window = OrionLib:MakeWindow({
-    Name = "Slowed Hub",
+    Name = "Bazuka Hub",
     HidePremium = false,
     SaveConfig = true,
     ConfigFolder = "XScriptHub",
-    IntroText = "Slowed Studios"
+    IntroText = "Bazuka Studio"
 });
 local CRD = Window:MakeTab({
-    Name = "informaÃ§Ãµes",
+    Name = "informações",
     Icon = "rbxassetid://15764521947",
     PremiumOnly = false
 });
 local HH = Window:MakeTab({
-    Name = "InÃ­cio",
+    Name = "Inicio",
     Icon = "rbxassetid://15764493661",
     PremiumOnly = false
 });
@@ -52,20 +52,20 @@ local utilitiesTab = Window:MakeTab({
     Icon = "rbxassetid://140270687691975",
     PremiumOnly = false
 });
-local Section = CRD:AddSection({Name = "ðŸŽ„ Creator ðŸŽ„"});
-CRD:AddLabel("Dev - Scritp: CodeCraft / MatheuszinZK");
+local Section = CRD:AddSection({Name = "Creator Bazuka„"});
+CRD:AddLabel("Dev - Scritp: Bazuka_yt");
 local function copyText()
-    local textToCopy = "https://discord.gg/25ms";
+    local textToCopy = "https://discord.gg/ckggnhbPa2";
     setclipboard(textToCopy);
     OrionLib:MakeNotification({
         Name = "Texto Copiado",
-        Content = "O link do dc foi copiado para a Ã¡rea de transferÃªncia",
+        Content = "O link do dc foi copiado, Bazuka No Topo! ",
         Image = "rbxassetid://15918472454",
         Time = 5
     });
 end
 CRD:AddButton({
-    Name = "Copiar Link Do nosso Doscord",
+    Name = "Copiar Link Do nosso Discord",
     Callback = copyText
 });
 local Section = CRD:AddSection({Name = "Jogo Join"});
@@ -84,7 +84,7 @@ local notificationsEnabled = true;
 local function showNotification(message, time)
     if notificationsEnabled then
         OrionLib:MakeNotification({
-            Name = "NotificaÃ§Ã£o",
+            Name = "Notificação",
             Content = message,
             Time = time or 5
         });
@@ -98,7 +98,7 @@ Players.PlayerRemoving:Connect(function(player)
 end);
 local notificationToggle;
 notificationToggle = HH:AddToggle({
-    Name = "NotificaÃ§Ã£o: Entrada/SaÃ­da",
+    Name = "Notificar: Entrada/Saida",
     Default = true,
     Callback = function(Value)
         notificationsEnabled = Value;
@@ -270,92 +270,83 @@ HH:AddToggle({
     end
 });
 spawn(function()
-    while wait() do
-        if ESPPlayer then UpdatePlayerChams(); end
-    end
-end);
-local Players = game:GetService("Players");
-local LocalPlayer = Players.LocalPlayer;
-local Camera = game:GetService("Workspace").CurrentCamera;
-local espEnabled = false;
-local espObjects = {};
 local function createESP(player)
-    local espLine = Drawing.new("Line");
-    espLine.Visible = false;
-    espLine.Color = Color3.fromRGB(255, 0, 0);
-    espLine.Thickness = 2;
-    espLine.Transparency = 1;
-    local espName = Drawing.new("Text");
-    espName.Visible = false;
-    espName.Color = Color3.fromRGB(255, 255, 255);
-    espName.Size = 18;
-    espName.Center = true;
-    espName.Outline = true;
-    espName.Text = player.Name;
-    local espHealth = Drawing.new("Text");
-    espHealth.Visible = false;
-    espHealth.Color = Color3.fromRGB(0, 255, 0);
-    espHealth.Size = 18;
-    espHealth.Center = true;
-    espHealth.Outline = true;
-    espObjects[player] = {
-        Line = espLine,
-        Name = espName,
-        Health = espHealth
-    };
+    local character = player.Character
+    if not character then return end
+
+    local head = character:WaitForChild("Head")
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Adornee = head
+    billboard.Size = UDim2.new(2, 0, 2, 0)
+    billboard.StudsOffset = Vector3.new(0, 2, 0)
+    billboard.AlwaysOnTop = true
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = player.Name
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Parent = billboard
+
+    billboard.Parent = head
+
+    local highlight = Instance.new("Highlight")
+    highlight.FillTransparency = 0.5
+    highlight.OutlineTransparency = 0
+    highlight.FillColor = Color3.new(0, 1, 0)
+    highlight.OutlineColor = Color3.new(1, 1, 1)
+    highlight.Parent = character
 end
-local function updateESP()
-    for _, player in pairs(Players:GetPlayers()) do
-        if ((player ~= LocalPlayer) and player.Character and
-            player.Character:FindFirstChild("HumanoidRootPart")) then
-            local hrp = player.Character.HumanoidRootPart;
-            local humanoid =
-                player.Character:FindFirstChild("Humanoid");
-            local screenPos, onScreen =
-                Camera:WorldToViewportPoint(hrp.Position);
-            if onScreen then
-                local espLine = espObjects[player].Line;
-                local espName = espObjects[player].Name;
-                local espHealth = espObjects[player].Health;
-                espLine.From = Vector2.new(
-                                    Camera.ViewportSize.X / 2,
-                                    Camera.ViewportSize.Y);
-                espLine.To = Vector2.new(screenPos.X, screenPos.Y);
-                espLine.Visible = espEnabled;
-                espName.Position =
-                    Vector2.new(screenPos.X, screenPos.Y - 25);
-                espName.Visible = espEnabled;
-                if humanoid then
-                    espHealth.Text = "HP: " ..
-                                            math.floor(humanoid.Health);
-                    espHealth.Position =
-                        Vector2.new(screenPos.X, screenPos.Y - 45);
-                    espHealth.Visible = espEnabled;
-                end
-            else
-                espObjects[player].Line.Visible = false;
-                espObjects[player].Name.Visible = false;
-                espObjects[player].Health.Visible = false;
-            end
+
+local function removeESP(player)
+    local character = player.Character
+    if not character then return end
+
+    local head = character:FindFirstChild("Head")
+    if not head then return end
+
+    for _, child in pairs(head:GetChildren()) do
+        if child:IsA("BillboardGui") then
+            child:Destroy()
+        end
+    end
+
+    for _, child in pairs(character:GetChildren()) do
+        if child:IsA("Highlight") then
+            child:Destroy()
         end
     end
 end
-local function toggleESP(value)
-    espEnabled = value;
-    if espEnabled then
-        for _, player in pairs(Players:GetPlayers()) do
-            if not espObjects[player] then
-                createESP(player);
-            end
-        end
-    else
-        for _, esp in pairs(espObjects) do
-            esp.Line.Visible = false;
-            esp.Name.Visible = false;
-            esp.Health.Visible = false;
-        end
+
+local function trackPlayer(player)
+    player.CharacterAdded:Connect(function()
+        createESP(player)
+    end)
+
+    player.CharacterRemoving:Connect(function()
+        removeESP(player)
+    end)
+
+    if player.Character then
+        createESP(player)
     end
 end
+
+game.Players.PlayerAdded:Connect(function(player)
+    trackPlayer(player)
+end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+    removeESP(player)
+end)
+
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player ~= game.Players.LocalPlayer then
+        trackPlayer(player)
+    end
+end
+
 HH:AddToggle({
     Name = "Esp Nome + Linhas",
     Default = false,
